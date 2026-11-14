@@ -1,0 +1,51 @@
+{
+  "dataset": {
+    "rows": 569,
+    "features": 30,
+    "malignant_share": 0.37258347978910367,
+    "train_rows": 455,
+    "test_rows": 114
+  },
+  "kernel_cv_accuracy": {
+    "RBF, unscaled": 0.9164835164835166,
+    "Linear": 0.9648351648351647,
+    "Polynomial (degree 3)": 0.9010989010989011,
+    "RBF": 0.9714285714285713
+  },
+  "best_rbf_params": {
+    "C": 10,
+    "gamma": 0.01
+  },
+  "best_rbf_cv_accuracy": 0.9758241758241759,
+  "best_linear_C": 0.1,
+  "support_vectors": {
+    "count": 56,
+    "share_of_training": 0.12307692307692308
+  },
+  "test": {
+    "SVM, RBF kernel (tuned)": {
+      "accuracy": 0.9824561403508771,
+      "recall_malignant": 0.9523809523809523,
+      "precision_malignant": 1.0,
+      "roc_auc": 0.996031746031746,
+      "missed_cancers": 2,
+      "false_alarms": 0
+    },
+    "SVM, linear kernel (tuned)": {
+      "accuracy": 0.9824561403508771,
+      "recall_malignant": 0.9523809523809523,
+      "precision_malignant": 1.0,
+      "roc_auc": 0.9963624338624338,
+      "missed_cancers": 2,
+      "false_alarms": 0
+    },
+    "Logistic Regression": {
+      "accuracy": 0.9649122807017544,
+      "recall_malignant": 0.9285714285714286,
+      "precision_malignant": 0.975,
+      "roc_auc": 0.996031746031746,
+      "missed_cancers": 3,
+      "false_alarms": 1
+    }
+  }
+}
