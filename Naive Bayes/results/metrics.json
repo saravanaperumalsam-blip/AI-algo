@@ -1,0 +1,157 @@
+{
+  "dataset": {
+    "messages_after_dedup": 5169,
+    "spam_share": 0.12633004449603405,
+    "train_rows": 4135,
+    "test_rows": 1034,
+    "vocabulary_size": 10083
+  },
+  "variants_cv": {
+    "MultinomialNB + word counts": {
+      "cv_f1_mean": 0.9298434158054425,
+      "cv_f1_std": 0.012600116829082518
+    },
+    "MultinomialNB + TF-IDF": {
+      "cv_f1_mean": 0.8225731086085439,
+      "cv_f1_std": 0.022650787482409437
+    },
+    "ComplementNB + word counts": {
+      "cv_f1_mean": 0.9105898499698422,
+      "cv_f1_std": 0.0256201990293016
+    },
+    "BernoulliNB (word present?)": {
+      "cv_f1_mean": 0.8486652510832349,
+      "cv_f1_std": 0.018108490590040455
+    }
+  },
+  "best_variant": "MultinomialNB + word counts",
+  "best_alpha": 0.5,
+  "alpha_curve": {
+    "alpha": [
+      0.01,
+      0.03,
+      0.05,
+      0.1,
+      0.2,
+      0.3,
+      0.5,
+      1.0,
+      2.0
+    ],
+    "cv_f1": [
+      0.9274,
+      0.9304,
+      0.9335,
+      0.9326,
+      0.933,
+      0.9337,
+      0.9343,
+      0.9298,
+      0.927
+    ],
+    "train_f1": [
+      0.982,
+      0.9801,
+      0.9792,
+      0.9778,
+      0.9756,
+      0.9734,
+      0.9712,
+      0.9668,
+      0.9585
+    ]
+  },
+  "test": {
+    "Baseline (always ham)": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "accuracy": 0.8733075435203095,
+      "avg_precision": 0.12669245647969052
+    },
+    "Naive Bayes (MultinomialNB + word counts, tuned)": {
+      "precision": 0.9754098360655737,
+      "recall": 0.9083969465648855,
+      "f1": 0.9407114624505928,
+      "accuracy": 0.9854932301740812,
+      "avg_precision": 0.9659653163451937
+    },
+    "Logistic Regression + TF-IDF": {
+      "precision": 0.967479674796748,
+      "recall": 0.9083969465648855,
+      "f1": 0.9370078740157479,
+      "accuracy": 0.9845261121856866,
+      "avg_precision": 0.9713933264446428
+    }
+  },
+  "top_spam_words": {
+    "claim": 6.05,
+    "prize": 5.95,
+    "150p": 5.54,
+    "nokia": 5.49,
+    "your mobile": 5.42,
+    "have won": 5.36,
+    "co": 5.36,
+    "tone": 5.36,
+    "co uk": 5.31,
+    "18": 5.31,
+    "16": 5.31,
+    "500": 5.21,
+    "guaranteed": 5.21,
+    "to claim": 5.18,
+    "1000": 5.11
+  },
+  "top_ham_words": {
+    "gt": -5.02,
+    "lt": -5.02,
+    "lt gt": -4.9,
+    "he": -4.85,
+    "lor": -4.52,
+    "she": -4.42,
+    "da": -4.36,
+    "\u00ec_": -4.18,
+    "later": -3.92,
+    "doing": -3.89,
+    "said": -3.88,
+    "really": -3.82,
+    "going to": -3.8,
+    "ask": -3.77,
+    "anything": -3.74
+  },
+  "missed_spam_examples": [
+    {
+      "text": "In The Simpsons Movie released in July 2007 name the band that died at the start of the film? A-Green Day, B-Blue Day, C-Red Day. (Send A, B or C)",
+      "p_spam": 0.0
+    },
+    {
+      "text": "Babe: U want me dont u baby! Im nasty and have a thing 4 filthyguys. Fancy a rude time with a sexy bitch. How about we go slo n hard! Txt XXX SLO(4msgs)",
+      "p_spam": 0.0
+    },
+    {
+      "text": "Hi its LUCY Hubby at meetins all day Fri & I will B alone at hotel U fancy cumin over? Pls leave msg 2day 09099726395 Lucy x Calls\u00e5\u00a31/minMobsmoreLKPOBOX177HP51FL",
+      "p_spam": 0.0
+    },
+    {
+      "text": "Would you like to see my XXX pics they are so hot they were nearly banned in the uk!",
+      "p_spam": 0.0
+    },
+    {
+      "text": "Missed call alert. These numbers called but left no message. 07008009200",
+      "p_spam": 0.001
+    }
+  ],
+  "false_alarm_examples": [
+    {
+      "text": "Nokia phone is lovly..",
+      "p_spam": 0.999
+    },
+    {
+      "text": "Waiting for your call.",
+      "p_spam": 0.971
+    },
+    {
+      "text": "Hey...Great deal...Farm tour 9am to 5pm $95/pax, $50 deposit by 16 May",
+      "p_spam": 0.834
+    }
+  ]
+}
