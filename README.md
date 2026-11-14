@@ -34,7 +34,18 @@ This repo is a hands-on tour of the **10 core machine learning algorithms**. Eac
 | PCA | Squash many features into a few new ones that keep most of the information |
 | Gradient Boosting | Build small trees one after another, each one fixing the previous trees' mistakes |
 
+## 🧭 Suggested learning order
+
+1. **Linear Regression** → **Logistic Regression**: the foundations (predicting numbers, then yes/no)
+2. **K-Nearest Neighbors**: the simplest "learn from examples" idea, plus why scaling matters
+3. **Naive Bayes**: probability-based learning on text
+4. **Decision Tree** → **Random Forest** → **Gradient Boosting**: from one tree, to a forest that votes, to trees that fix each other's mistakes
+5. **Support Vector Machine**: maximum margins and kernels
+6. **K-Means** and **PCA**: unsupervised learning, finding structure without labels
+
 ## 🗂 What every project folder contains
+
+*(The first project, Logistic Regression, predates this layout: it has `app.py` plus a data-processing notebook.)*
 
 ```
 <Algorithm>/
