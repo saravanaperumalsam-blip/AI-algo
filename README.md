@@ -1,123 +1,61 @@
-# 🤖 AI Algorithms
+# 🤖 AI Algorithms: Machine Learning, One Project per Algorithm
 
-A collection of machine learning algorithms implemented in Python on real datasets, each with a small interactive app.
+![Python](https://img.shields.io/badge/Python-3.8%2B-3776AB?logo=python&logoColor=white) ![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?logo=scikitlearn&logoColor=white) ![Gradio](https://img.shields.io/badge/UI-Gradio-FF7C00)
 
-| Algorithm | Project | Folder |
-|---|---|---|
-| Logistic Regression | Heart disease (10-year CHD) risk prediction | [`Logistic regression/`](Logistic%20regression/) |
+This repo is a hands-on tour of the **10 core machine learning algorithms**. Each algorithm has its own folder with a real-world project: a real dataset, model tuning, evaluation charts, an interactive **Gradio** app, tests, and a README that explains the algorithm in plain English.
 
----
+## ✅ Algorithm checklist
 
-## ❤️ Logistic Regression: Heart Disease Risk Prediction
+| | Algorithm | Type | Project | Folder |
+|---|---|---|---|---|
+| ✅ | **Logistic Regression** | Supervised: classification | Heart disease risk prediction | [`Logistic regression/`](Logistic%20regression/) |
+| ⬜ | **Linear Regression** | Supervised: regression | Diabetes progression predictor | `Linear regression/` |
+| ⬜ | **Decision Tree** | Supervised: classification | Loss-making order detector (Superstore) | `Decision tree/` |
+| ⬜ | **Random Forest** | Supervised: ensemble | Heart disease: forest vs. logistic regression | `Random forest/` |
+| ⬜ | **K-Nearest Neighbors (KNN)** | Supervised: classification | Wine cultivar classifier | `K-nearest neighbors/` |
+| ⬜ | **Naive Bayes** | Supervised: text classification | SMS spam filter | `Naive Bayes/` |
+| ⬜ | **Support Vector Machine (SVM)** | Supervised: classification | Breast cancer diagnosis | `Support vector machine/` |
+| ⬜ | **K-Means Clustering** | Unsupervised: clustering | Customer segmentation (RFM) | `K-means clustering/` |
+| ⬜ | **Principal Component Analysis (PCA)** | Unsupervised: dimensionality reduction | Handwritten digit compression | `PCA/` |
+| ⬜ | **Gradient Boosting** | Supervised: ensemble | Order profit prediction (Superstore) | `Gradient boosting/` |
 
-![Python](https://img.shields.io/badge/Python-3.x-3776AB?logo=python&logoColor=white) ![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?logo=scikitlearn&logoColor=white) ![Gradio](https://img.shields.io/badge/UI-Gradio-FF7C00) ![Jupyter](https://img.shields.io/badge/Jupyter-F37626?logo=jupyter&logoColor=white)
+## 🧠 The algorithms in one line each
 
-Predicts whether a person is at risk of developing **coronary heart disease (CHD) within 10 years**, using the **Framingham Heart Study** dataset. A **Gradio** web app lets you enter a patient's details and returns a risk estimate with a probability.
-
-### 📂 Dataset
-
-`framingham.csv`: 4,238 participants and 15 features. **15.2%** of them developed CHD within 10 years (`TenYearCHD = 1`), so the classes are imbalanced.
-
-| Group | Features |
+| Algorithm | The idea in plain English |
 |---|---|
-| Demographics | `male`, `age`, `education` (dropped) |
-| Behaviour | `currentSmoker`, `cigsPerDay` |
-| Medical history | `BPMeds`, `prevalentStroke`, `prevalentHyp`, `diabetes` |
-| Measurements | `totChol`, `sysBP`, `diaBP`, `BMI`, `heartRate`, `glucose` |
-| **Target** | `TenYearCHD` |
+| Linear Regression | Draw the best straight line (or flat surface) through the data to predict a **number** |
+| Logistic Regression | Like linear regression, but squashes the output into a 0–1 **probability** for yes/no questions |
+| Decision Tree | Ask a series of yes/no questions ("Is discount > 20%?") until you reach an answer, like a flowchart |
+| Random Forest | Train hundreds of slightly different decision trees and let them **vote** |
+| K-Nearest Neighbors | Look at the *k* most similar past examples and copy their answer |
+| Naive Bayes | Use word probabilities ("'FREE' appears in 30% of spam") and combine them with Bayes' theorem |
+| Support Vector Machine | Find the boundary that separates two classes with the **widest possible gap** |
+| K-Means Clustering | Group similar items together without being told the groups in advance |
+| PCA | Squash many features into a few new ones that keep most of the information |
+| Gradient Boosting | Build small trees one after another, each one fixing the previous trees' mistakes |
 
-### 🧹 Data processing (`data-processing.ipynb`)
+## 🗂 What every project folder contains
 
-- Checked missing values; the largest gaps are `glucose` (388), `education` (105) and `BPMeds` (53)
-- Dropped `education`, which isn't a medical predictor
-- Filled missing numeric values with the **median** (more robust to extreme medical readings) and `BPMeds` with the **mode**
-- Removed medically impossible values (e.g. cholesterol outside 100–600, systolic BP outside 70–250, BMI outside 10–60)
+```
+<Algorithm>/
+├── README.md          # How the algorithm works, dataset, approach, results
+├── train.py           # Load data → tune → evaluate → save model, charts and metrics
+├── app.py             # Interactive Gradio app
+├── test_project.py    # Automated tests (python -m unittest)
+├── requirements.txt
+├── images/            # Charts produced by train.py
+└── results/           # metrics.json produced by train.py
+```
 
-### ⚙️ Model (`app.py`)
-
-1. 80/20 train/test split (`random_state=42`)
-2. Missing values filled with **training-set medians** (to avoid leaking test data)
-3. Features standardised with `StandardScaler`
-4. `LogisticRegression(class_weight="balanced")` trained on the 14 features, so the minority CHD class isn't ignored
-5. Gradio app that returns a risk label and a 0–100 risk score
-
-### 📈 Results (test set, 848 people)
-
-**The accuracy trap.** Only 15% of people develop CHD, so a model that always predicts "no CHD" is already 85.4% accurate. The first version of this model reached 85.7% accuracy, but it caught only **9 of 124** real CHD cases. For a screening tool, that's the wrong trade-off: missing an at-risk person costs far more than an extra check-up.
-
-**The fix: balanced class weights.** Weighting CHD cases more heavily during training makes the model take them seriously:
-
-| Model | Recall (CHD caught) | Precision | F1 | Accuracy | ROC-AUC |
-|---|---|---|---|---|---|
-| Unweighted (first version) | 7.3% (9/124) | 60.0% | 0.129 | 85.7% | 0.709 |
-| **Balanced class weights (final)** | **65.3% (81/124)** | 23.8% | **0.348** | 64.3% | 0.710 |
-| Balanced + tuned threshold (0.55, chosen by 5-fold CV on training data) | 55.6% (69/124) | 26.7% | 0.361 | 71.2% | 0.710 |
-
-The final model catches **about 9× more real CHD cases** (81 vs 9). The cost is more false alarms, which is acceptable for screening because flagged people would get a follow-up test. Tuning the threshold gave a very similar F1 at lower recall, so the simpler default threshold was kept.
-
-Final model confusion matrix:
-
-| | Predicted no CHD | Predicted CHD |
-|---|---|---|
-| **Actual no CHD** | 464 | 260 |
-| **Actual CHD** | 43 | 81 |
-
-ROC-AUC stays at 0.71: re-weighting changes *where* the model draws the line, not how well it ranks people by risk. Better features or models are needed to raise that.
-
-**Strongest risk factors** (standardised coefficients):
-
-| Feature | Coefficient |
-|---|---|
-| Age | +0.57 |
-| Systolic blood pressure | +0.30 |
-| Cigarettes per day | +0.29 |
-| Male | +0.21 |
-| Glucose | +0.19 |
-
-This matches medical knowledge: older age, high blood pressure, smoking, being male and high glucose all raise CHD risk.
-
-### 🖥️ Gradio app
-
-Inputs: sex, age, smoking status, cigarettes per day, BP medication, prior stroke, hypertension, diabetes, total cholesterol, systolic/diastolic BP, BMI, heart rate and glucose.
-
-Output: **⚠️ Higher risk** or **✅ Lower risk**, with a 0–100 risk score. Balanced class weights make the score useful for ranking risk, but it isn't a calibrated probability, so it's shown as a score rather than a percentage chance.
-
-When `app.py` starts, it prints recall, precision, F1, ROC-AUC, accuracy and the confusion matrix.
-
-### 🚀 How to run
+## 🚀 Running any project
 
 ```bash
 git clone https://github.com/saravanaperumalsam-blip/AI-algo.git
-cd "AI-algo/Logistic regression"
+cd "AI-algo/<Algorithm folder>"
 pip install -r requirements.txt
-python app.py
-```
-
-Then open the local URL shown in the terminal (usually http://127.0.0.1:7860).
-
-### 🔧 Next improvements
-
-- Calibrate the risk score (e.g. `CalibratedClassifierCV`) so it can be read as a real probability
-- Try SMOTE and compare it with class weighting
-- Use the cleaning steps from the notebook (outlier removal) inside `app.py` as well
-- Compare with Random Forest and gradient boosting
-
-### ⚠️ Disclaimer
-
-This is an educational machine learning project. It is **not a medical device** and must not be used for diagnosis or treatment decisions.
-
----
-
-## 🗂 Project structure
-
-```
-AI-algo/
-├── README.md
-└── Logistic regression/
-    ├── app.py                   # Model training + Gradio app
-    ├── data-processing.ipynb    # Data exploration and cleaning
-    ├── framingham.csv           # Framingham Heart Study dataset
-    └── requirements.txt
+python train.py            # trains, evaluates, saves charts and metrics
+python app.py              # opens the interactive app at http://127.0.0.1:7860
+python -m unittest -v      # runs the tests
 ```
 
 ## 👤 Author
