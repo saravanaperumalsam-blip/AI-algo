@@ -1,0 +1,92 @@
+{
+  "dataset": {
+    "rows": 442,
+    "features": [
+      "age",
+      "sex",
+      "bmi",
+      "blood_pressure",
+      "total_cholesterol",
+      "ldl",
+      "hdl",
+      "chol_hdl_ratio",
+      "log_triglycerides",
+      "blood_sugar"
+    ],
+    "train_rows": 353,
+    "test_rows": 89
+  },
+  "comparison": {
+    "Baseline (predict the mean)": {
+      "cv_rmse_mean": 78.13363381604925,
+      "cv_rmse_std": 5.638301659248414,
+      "test": {
+        "r2": -0.011962984778542296,
+        "rmse": 73.22249283682244,
+        "mae": 64.00646146990485
+      }
+    },
+    "Linear Regression": {
+      "cv_rmse_mean": 55.394633328018564,
+      "cv_rmse_std": 2.3614957385638764,
+      "test": {
+        "r2": 0.45260276297191926,
+        "rmse": 53.85344583676594,
+        "mae": 42.794094679599944
+      }
+    },
+    "Ridge (L2)": {
+      "cv_rmse_mean": 55.51988168903339,
+      "cv_rmse_std": 2.4518721229859617,
+      "test": {
+        "r2": 0.4598994939689913,
+        "rmse": 53.493312109112196,
+        "mae": 42.94945129544328
+      },
+      "best_alpha": 31.622776601683793
+    },
+    "Lasso (L1)": {
+      "cv_rmse_mean": 55.472370844658236,
+      "cv_rmse_std": 2.1068928217348866,
+      "test": {
+        "r2": 0.4712552451125337,
+        "rmse": 52.92796942662746,
+        "mae": 42.77736315306029
+      },
+      "best_alpha": 1.539926526059492
+    },
+    "Polynomial (deg 2) + Ridge": {
+      "cv_rmse_mean": 55.443607734388124,
+      "cv_rmse_std": 2.2435503769319545,
+      "test": {
+        "r2": 0.45899066445019354,
+        "rmse": 53.53829990863561,
+        "mae": 43.02736895779208
+      },
+      "best_alpha": 177.82794100389228
+    }
+  },
+  "best_model": "Linear Regression",
+  "best_test_metrics": {
+    "r2": 0.45260276297191926,
+    "rmse": 53.85344583676594,
+    "mae": 42.794094679599944
+  },
+  "linear_coefficients_per_std": {
+    "age": 1.75,
+    "sex": -11.51,
+    "bmi": 25.61,
+    "blood_pressure": 16.83,
+    "total_cholesterol": -44.45,
+    "ldl": 24.64,
+    "hdl": 7.68,
+    "chol_hdl_ratio": 13.14,
+    "log_triglycerides": 35.16,
+    "blood_sugar": 2.35
+  },
+  "lasso_dropped_features": [
+    "age",
+    "ldl",
+    "chol_hdl_ratio"
+  ]
+}
