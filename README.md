@@ -16,7 +16,7 @@ This repo is a hands-on tour of the **10 core machine learning algorithms**. Eac
 | ✅ | **Naive Bayes** | Supervised: text classification | SMS spam filter | [`Naive Bayes/`](Naive%20Bayes/) |
 | ✅ | **Support Vector Machine (SVM)** | Supervised: classification | Breast cancer diagnosis | [`Support vector machine/`](Support%20vector%20machine/) |
 | ✅ | **K-Means Clustering** | Unsupervised: clustering | Customer segmentation (RFM) | [`K-means clustering/`](K-means%20clustering/) |
-| ⬜ | **Principal Component Analysis (PCA)** | Unsupervised: dimensionality reduction | Handwritten digit compression | `PCA/` |
+| ✅ | **Principal Component Analysis (PCA)** | Unsupervised: dimensionality reduction | Handwritten digit compression | [`PCA/`](PCA/) |
 | ⬜ | **Gradient Boosting** | Supervised: ensemble | Order profit prediction (Superstore) | `Gradient boosting/` |
 
 ## 🧠 The algorithms in one line each
