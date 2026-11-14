@@ -55,7 +55,7 @@ The first two components alone carry about 28% of all the variation; the last 20
 
 ![Eigen-digits](images/eigen_digits.png)
 
-The eigen-digits look like ghostly strokes. PC 1, for example, contrasts the ink pattern of a "0" with that of a "1"/"4". Adding or subtracting these patterns from the average digit builds every image.
+The eigen-digits look like ghostly strokes. Adding or subtracting these patterns from the average digit builds every image. The 2D map further down shows what the first two capture: **PC 1** separates 4s and 6s (left) from 3s and 9s (right), and **PC 2** separates 0s (top) from 1s and 7s (bottom).
 
 ![Reconstructions](images/reconstructions.png)
 
