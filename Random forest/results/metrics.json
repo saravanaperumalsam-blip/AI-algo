@@ -1,0 +1,120 @@
+{
+  "dataset": {
+    "rows": 4238,
+    "chd_share": 0.1519584709768759,
+    "train_rows": 3390,
+    "test_rows": 848
+  },
+  "comparison": {
+    "Logistic Regression": {
+      "cv_auc_mean": 0.731913887716336,
+      "cv_auc_std": 0.02459258319596338,
+      "train_auc": 0.7415908822287886,
+      "test": {
+        "roc_auc": 0.6987310109864043,
+        "recall": 0.5813953488372093,
+        "precision": 0.24752475247524752,
+        "f1": 0.3472222222222222,
+        "accuracy": 0.6674528301886793
+      }
+    },
+    "Single Decision Tree (tuned)": {
+      "cv_auc_mean": 0.6909970451667371,
+      "cv_auc_std": 0.014108699590970195,
+      "train_auc": 0.7184763191219925,
+      "test": {
+        "roc_auc": 0.6470065012776143,
+        "recall": 0.6201550387596899,
+        "precision": 0.21505376344086022,
+        "f1": 0.3193612774451098,
+        "accuracy": 0.597877358490566
+      },
+      "best_params": {
+        "max_depth": 3,
+        "min_samples_leaf": 100
+      }
+    },
+    "Random Forest (default)": {
+      "cv_auc_mean": 0.7001519628535247,
+      "cv_auc_std": 0.022394384005506716,
+      "train_auc": 1.0,
+      "test": {
+        "roc_auc": 0.6560522258520124,
+        "recall": 0.015503875968992248,
+        "precision": 0.2857142857142857,
+        "f1": 0.02941176470588235,
+        "accuracy": 0.8443396226415094
+      }
+    },
+    "Random Forest (tuned)": {
+      "cv_auc_mean": 0.722178134233854,
+      "cv_auc_std": 0.023060262495543646,
+      "train_auc": 0.842418573237653,
+      "test": {
+        "roc_auc": 0.6810708240342422,
+        "recall": 0.4728682170542636,
+        "precision": 0.24696356275303644,
+        "f1": 0.32446808510638303,
+        "accuracy": 0.7004716981132075
+      },
+      "best_params": {
+        "n_estimators": 200,
+        "min_samples_leaf": 20,
+        "max_features": "sqrt",
+        "max_depth": 8
+      }
+    }
+  },
+  "oob_curve": {
+    "n_trees": [
+      10,
+      25,
+      50,
+      100,
+      200,
+      400,
+      600
+    ],
+    "oob_auc": [
+      0.6707829463908823,
+      0.7047807513718869,
+      0.7096442380751371,
+      0.7137013085690164,
+      0.7182541156606164,
+      0.718959898691431,
+      0.7185857323765302
+    ]
+  },
+  "impurity_importance": {
+    "age": 0.2672,
+    "sysBP": 0.1729,
+    "diaBP": 0.0942,
+    "totChol": 0.0883,
+    "BMI": 0.0809,
+    "glucose": 0.0765,
+    "prevalentHyp": 0.0566,
+    "cigsPerDay": 0.053,
+    "heartRate": 0.0529,
+    "male": 0.0368,
+    "currentSmoker": 0.0135,
+    "diabetes": 0.0039,
+    "BPMeds": 0.0033,
+    "prevalentStroke": 0.0
+  },
+  "permutation_importance": {
+    "age": 0.0852,
+    "sysBP": 0.0236,
+    "male": 0.011,
+    "cigsPerDay": 0.0045,
+    "prevalentHyp": 0.0043,
+    "diaBP": 0.0017,
+    "totChol": 0.0013,
+    "heartRate": 0.0013,
+    "currentSmoker": 0.0004,
+    "diabetes": 0.0003,
+    "glucose": 0.0,
+    "prevalentStroke": 0.0,
+    "BPMeds": -0.0008,
+    "BMI": -0.0058
+  }
+}
