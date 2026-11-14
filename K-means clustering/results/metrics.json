@@ -1,0 +1,112 @@
+{
+  "dataset": {
+    "customers": 793,
+    "rfm_summary": {
+      "recency_days": {
+        "count": 793.0,
+        "mean": 147.8,
+        "std": 186.2,
+        "min": 1.0,
+        "25%": 31.0,
+        "50%": 76.0,
+        "75%": 184.0,
+        "max": 1166.0
+      },
+      "frequency": {
+        "count": 793.0,
+        "mean": 6.3,
+        "std": 2.6,
+        "min": 1.0,
+        "25%": 5.0,
+        "50%": 6.0,
+        "75%": 8.0,
+        "max": 17.0
+      },
+      "monetary": {
+        "count": 793.0,
+        "mean": 2896.8,
+        "std": 2628.7,
+        "min": 4.8,
+        "25%": 1146.0,
+        "50%": 2256.4,
+        "75%": 3785.3,
+        "max": 25043.0
+      }
+    }
+  },
+  "k_selection": {
+    "k": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "inertia": [
+      1481.960836691527,
+      1183.1278719549118,
+      987.0724402326969,
+      853.5489082074862,
+      769.8957055148398,
+      703.7307271201381,
+      637.5953613956946,
+      585.1815968160445,
+      543.9944397120651
+    ],
+    "silhouette": [
+      0.3501010838247754,
+      0.2546384423193897,
+      0.2537342537403758,
+      0.2512063635981979,
+      0.24269939334661156,
+      0.2334371797464205,
+      0.24024699519110432,
+      0.24493448495646095,
+      0.24076385565283984
+    ]
+  },
+  "chosen_k": 3,
+  "chosen_silhouette": 0.2546384423193897,
+  "segments": [
+    {
+      "cluster": 0,
+      "customers": 290,
+      "recency_days": 28.0,
+      "frequency": 8.0,
+      "monetary": 3057.586,
+      "total_sales": 1059247.582,
+      "total_profit": 137509.201,
+      "segment": "Champions",
+      "share_of_customers": 0.366,
+      "share_of_sales": 0.461
+    },
+    {
+      "cluster": 2,
+      "customers": 312,
+      "recency_days": 122.0,
+      "frequency": 6.0,
+      "monetary": 2758.55,
+      "total_sales": 1091113.932,
+      "total_profit": 137322.691,
+      "segment": "Big spenders cooling off",
+      "share_of_customers": 0.393,
+      "share_of_sales": 0.475
+    },
+    {
+      "cluster": 1,
+      "customers": 191,
+      "recency_days": 159.0,
+      "frequency": 4.0,
+      "monetary": 736.276,
+      "total_sales": 146839.346,
+      "total_profit": 11565.129,
+      "segment": "Low-value / lapsing",
+      "share_of_customers": 0.241,
+      "share_of_sales": 0.064
+    }
+  ]
+}
