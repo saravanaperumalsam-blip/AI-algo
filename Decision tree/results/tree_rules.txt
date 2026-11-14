@@ -1,0 +1,100 @@
+|--- Discount <= 0.250
+|   |--- Discount <= 0.125
+|   |   |--- Discount <= 0.050
+|   |   |   |--- class: 0
+|   |   |--- Discount >  0.050
+|   |   |   |--- Segment_Home Office <= 0.500
+|   |   |   |   |--- Ship Mode_First Class <= 0.500
+|   |   |   |   |   |--- class: 0
+|   |   |   |   |--- Ship Mode_First Class >  0.500
+|   |   |   |   |   |--- Sales <= 566.028
+|   |   |   |   |   |   |--- class: 0
+|   |   |   |   |   |--- Sales >  566.028
+|   |   |   |   |   |   |--- class: 0
+|   |   |   |--- Segment_Home Office >  0.500
+|   |   |   |   |--- Sales <= 186.705
+|   |   |   |   |   |--- Sales <= 107.514
+|   |   |   |   |   |   |--- class: 0
+|   |   |   |   |   |--- Sales >  107.514
+|   |   |   |   |   |   |--- class: 1
+|   |   |   |   |--- Sales >  186.705
+|   |   |   |   |   |--- Ship Mode_First Class <= 0.500
+|   |   |   |   |   |   |--- class: 0
+|   |   |   |   |   |--- Ship Mode_First Class >  0.500
+|   |   |   |   |   |   |--- class: 0
+|   |--- Discount >  0.125
+|   |   |--- Sub-Category_Storage <= 0.500
+|   |   |   |--- Category_Office Supplies <= 0.500
+|   |   |   |   |--- Sub-Category_Phones <= 0.500
+|   |   |   |   |   |--- Sub-Category_Furnishings <= 0.500
+|   |   |   |   |   |   |--- class: 0
+|   |   |   |   |   |--- Sub-Category_Furnishings >  0.500
+|   |   |   |   |   |   |--- class: 0
+|   |   |   |   |--- Sub-Category_Phones >  0.500
+|   |   |   |   |   |--- Sales <= 85.568
+|   |   |   |   |   |   |--- class: 0
+|   |   |   |   |   |--- Sales >  85.568
+|   |   |   |   |   |   |--- class: 0
+|   |   |   |--- Category_Office Supplies >  0.500
+|   |   |   |   |--- Sub-Category_Supplies <= 0.500
+|   |   |   |   |   |--- Sub-Category_Fasteners <= 0.500
+|   |   |   |   |   |   |--- class: 0
+|   |   |   |   |   |--- Sub-Category_Fasteners >  0.500
+|   |   |   |   |   |   |--- class: 0
+|   |   |   |   |--- Sub-Category_Supplies >  0.500
+|   |   |   |   |   |--- Sales <= 137.168
+|   |   |   |   |   |   |--- class: 0
+|   |   |   |   |   |--- Sales >  137.168
+|   |   |   |   |   |   |--- class: 1
+|   |   |--- Sub-Category_Storage >  0.500
+|   |   |   |--- Sales <= 63.412
+|   |   |   |   |--- Ship Mode_Standard Class <= 0.500
+|   |   |   |   |   |--- Sales <= 6.744
+|   |   |   |   |   |   |--- class: 0
+|   |   |   |   |   |--- Sales >  6.744
+|   |   |   |   |   |   |--- class: 0
+|   |   |   |   |--- Ship Mode_Standard Class >  0.500
+|   |   |   |   |   |--- Sales <= 52.704
+|   |   |   |   |   |   |--- class: 0
+|   |   |   |   |   |--- Sales >  52.704
+|   |   |   |   |   |   |--- class: 0
+|   |   |   |--- Sales >  63.412
+|   |   |   |   |--- Quantity <= 6.500
+|   |   |   |   |   |--- Sales <= 277.320
+|   |   |   |   |   |   |--- class: 1
+|   |   |   |   |   |--- Sales >  277.320
+|   |   |   |   |   |   |--- class: 1
+|   |   |   |   |--- Quantity >  6.500
+|   |   |   |   |   |--- Sales <= 382.040
+|   |   |   |   |   |   |--- class: 0
+|   |   |   |   |   |--- Sales >  382.040
+|   |   |   |   |   |   |--- class: 1
+|--- Discount >  0.250
+|   |--- Sub-Category_Copiers <= 0.500
+|   |   |--- Category_Technology <= 0.500
+|   |   |   |--- Discount <= 0.310
+|   |   |   |   |--- Quantity <= 3.500
+|   |   |   |   |   |--- Ship Mode_First Class <= 0.500
+|   |   |   |   |   |   |--- class: 1
+|   |   |   |   |   |--- Ship Mode_First Class >  0.500
+|   |   |   |   |   |   |--- class: 1
+|   |   |   |   |--- Quantity >  3.500
+|   |   |   |   |   |--- Segment_Home Office <= 0.500
+|   |   |   |   |   |   |--- class: 1
+|   |   |   |   |   |--- Segment_Home Office >  0.500
+|   |   |   |   |   |   |--- class: 1
+|   |   |   |--- Discount >  0.310
+|   |   |   |   |--- class: 1
+|   |   |--- Category_Technology >  0.500
+|   |   |   |--- Quantity <= 9.500
+|   |   |   |   |--- Discount <= 0.350
+|   |   |   |   |   |--- class: 0
+|   |   |   |   |--- Discount >  0.350
+|   |   |   |   |   |--- Region_Central <= 0.500
+|   |   |   |   |   |   |--- class: 1
+|   |   |   |   |   |--- Region_Central >  0.500
+|   |   |   |   |   |   |--- class: 1
+|   |   |   |--- Quantity >  9.500
+|   |   |   |   |--- class: 0
+|   |--- Sub-Category_Copiers >  0.500
+|   |   |--- class: 0
