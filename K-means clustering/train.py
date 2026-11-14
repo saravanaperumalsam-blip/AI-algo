@@ -10,10 +10,7 @@ Run:  python train.py
 from __future__ import annotations
 
 import json
-import os
 from pathlib import Path
-
-os.environ.setdefault("LOKY_MAX_CPU_COUNT", str(os.cpu_count() or 1))  # silences a joblib warning on Windows
 
 import joblib
 import matplotlib
