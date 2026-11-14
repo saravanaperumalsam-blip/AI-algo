@@ -38,26 +38,31 @@ Predicts whether a person is at risk of developing **coronary heart disease (CHD
 1. 80/20 train/test split (`random_state=42`)
 2. Missing values filled with **training-set medians** (to avoid leaking test data)
 3. Features standardised with `StandardScaler`
-4. `LogisticRegression` trained on the 14 features
-5. Gradio app for predictions with a probability score
+4. `LogisticRegression(class_weight="balanced")` trained on the 14 features, so the minority CHD class isn't ignored
+5. Gradio app that returns a risk label and a 0–100 risk score
 
 ### 📈 Results (test set, 848 people)
 
-| Metric | Score |
-|---|---|
-| Accuracy | 85.7% |
-| ROC-AUC | 0.709 |
-| Recall for CHD cases | 7.3% (9 of 124) |
-| Precision for CHD cases | 60.0% |
+**The accuracy trap.** Only 15% of people develop CHD, so a model that always predicts "no CHD" is already 85.4% accurate. The first version of this model reached 85.7% accuracy, but it caught only **9 of 124** real CHD cases. For a screening tool, that's the wrong trade-off: missing an at-risk person costs far more than an extra check-up.
 
-Confusion matrix:
+**The fix: balanced class weights.** Weighting CHD cases more heavily during training makes the model take them seriously:
+
+| Model | Recall (CHD caught) | Precision | F1 | Accuracy | ROC-AUC |
+|---|---|---|---|---|---|
+| Unweighted (first version) | 7.3% (9/124) | 60.0% | 0.129 | 85.7% | 0.709 |
+| **Balanced class weights (final)** | **65.3% (81/124)** | 23.8% | **0.348** | 64.3% | 0.710 |
+| Balanced + tuned threshold (0.55, chosen by 5-fold CV on training data) | 55.6% (69/124) | 26.7% | 0.361 | 71.2% | 0.710 |
+
+The final model catches **about 9× more real CHD cases** (81 vs 9). The cost is more false alarms, which is acceptable for screening because flagged people would get a follow-up test. Tuning the threshold gave a very similar F1 at lower recall, so the simpler default threshold was kept.
+
+Final model confusion matrix:
 
 | | Predicted no CHD | Predicted CHD |
 |---|---|---|
-| **Actual no CHD** | 718 | 6 |
-| **Actual CHD** | 115 | 9 |
+| **Actual no CHD** | 464 | 260 |
+| **Actual CHD** | 43 | 81 |
 
-**What this shows:** because 85% of people don't develop CHD, a model that always predicts "no CHD" would already be 85.4% accurate. This model's ROC-AUC of 0.71 shows it does learn real risk patterns. At the default 0.5 threshold, though, it flags very few people as high risk and misses most real cases. For a screening tool, catching at-risk people (recall) matters more than overall accuracy. That's the main thing to improve next (see below).
+ROC-AUC stays at 0.71: re-weighting changes *where* the model draws the line, not how well it ranks people by risk. Better features or models are needed to raise that.
 
 **Strongest risk factors** (standardised coefficients):
 
@@ -75,7 +80,9 @@ This matches medical knowledge: older age, high blood pressure, smoking, being m
 
 Inputs: sex, age, smoking status, cigarettes per day, BP medication, prior stroke, hypertension, diabetes, total cholesterol, systolic/diastolic BP, BMI, heart rate and glucose.
 
-Output: **⚠️ High risk** or **✅ Low risk**, with a probability.
+Output: **⚠️ Higher risk** or **✅ Lower risk**, with a 0–100 risk score. Balanced class weights make the score useful for ranking risk, but it isn't a calibrated probability, so it's shown as a score rather than a percentage chance.
+
+When `app.py` starts, it prints recall, precision, F1, ROC-AUC, accuracy and the confusion matrix.
 
 ### 🚀 How to run
 
@@ -90,8 +97,8 @@ Then open the local URL shown in the terminal (usually http://127.0.0.1:7860).
 
 ### 🔧 Next improvements
 
-- Handle class imbalance with `class_weight="balanced"` or SMOTE
-- Lower the decision threshold to catch more at-risk patients, and report recall and F1, not just accuracy
+- Calibrate the risk score (e.g. `CalibratedClassifierCV`) so it can be read as a real probability
+- Try SMOTE and compare it with class weighting
 - Use the cleaning steps from the notebook (outlier removal) inside `app.py` as well
 - Compare with Random Forest and gradient boosting
 

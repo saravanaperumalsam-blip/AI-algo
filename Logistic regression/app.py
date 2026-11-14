@@ -2,7 +2,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score, roc_auc_score, confusion_matrix
 import gradio as gr
 
 df=pd.read_csv('framingham.csv')
@@ -23,12 +23,22 @@ scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
-model = LogisticRegression()
+# Only ~15% of people develop CHD, so an unweighted model learns to predict
+# "no CHD" for almost everyone (high accuracy, but it misses most real cases).
+# class_weight="balanced" gives CHD cases more weight so the model catches them.
+model = LogisticRegression(class_weight="balanced", max_iter=1000)
 model.fit(X_train_scaled, y_train)
 
-# 8. Check how accurate the model is
+# Evaluate: for a screening tool, recall (CHD cases caught) matters most
 y_pred = model.predict(X_test_scaled)
-print(f"Accuracy: {accuracy_score(y_test, y_pred) * 100:.2f}%")
+y_prob = model.predict_proba(X_test_scaled)[:, 1]
+print(f"Recall (CHD cases caught): {recall_score(y_test, y_pred) * 100:.1f}%")
+print(f"Precision:                 {precision_score(y_test, y_pred) * 100:.1f}%")
+print(f"F1 score:                  {f1_score(y_test, y_pred):.3f}")
+print(f"ROC-AUC:                   {roc_auc_score(y_test, y_prob):.3f}")
+print(f"Accuracy:                  {accuracy_score(y_test, y_pred) * 100:.1f}%")
+print("Confusion matrix [[TN FP] [FN TP]]:")
+print(confusion_matrix(y_test, y_pred))
 
 # NEW GRADIO ADDITIONS BELOW
 # ==========================================
@@ -49,13 +59,15 @@ def predict_heart_disease(male, age, currentSmoker, cigsPerDay, BPMeds,
     input_scaled = scaler.transform(input_df)
     
     # Make prediction
+    # With balanced class weights the score is a relative risk score,
+    # not a calibrated probability, so it is labelled as a score.
     prediction = model.predict(input_scaled)[0]
-    prob = model.predict_proba(input_scaled)[0][1] * 100
-    
+    score = model.predict_proba(input_scaled)[0][1] * 100
+
     if prediction == 1:
-        return f"⚠️ High Risk of Heart Disease ({prob:.1f}% probability)"
+        return f"⚠️ Higher risk of heart disease (risk score {score:.0f}/100)"
     else:
-        return f"✅ Low Risk of Heart Disease ({100 - prob:.1f}% probability)"
+        return f"✅ Lower risk of heart disease (risk score {score:.0f}/100)"
 
 
 # 2. Input UI Controls
@@ -81,7 +93,9 @@ app = gr.Interface(
     fn=predict_heart_disease,
     inputs=inputs,
     outputs=gr.Textbox(label="Heart Disease Prediction"),
-    title="Framingham Heart Disease Predictor"
+    title="Framingham Heart Disease Predictor",
+    description="Estimates 10-year coronary heart disease risk. Educational project only, not medical advice."
 )
 
-app.launch()
+if __name__ == "__main__":
+    app.launch()
