@@ -74,7 +74,7 @@ Multinomial NB works best with **raw counts**, which is what its probability mod
 
 ![Top words](images/top_words.png)
 
-**Spam words** are what you'd expect: *claim*, *prize*, *150p*, *have won*, *your mobile*, *tone*, *co uk*, *18*. **Ham words** are conversational: *I'm*, *my*, *ok*, *lol*, *later*.
+**Spam words** are what you'd expect: *claim*, *prize*, *150p*, *have won*, *your mobile*, *tone*, *co uk*, *18*. **Ham words** are conversational: *he*, *she*, *lor*, *da*, *later*, *doing*. The top two, *gt* and *lt*, are a **data artifact**: in the raw dataset, numbers in personal messages were replaced with an HTML-escaped placeholder `&lt;#&gt;`, which appears only in ham. The model happily learned that "placeholder = ham". This is a good reminder to inspect what a model relies on, because a real filter wouldn't see those placeholders.
 
 **Error analysis: what fools the filter?**
 - **Missed spam** often reads like a normal message: quiz-style texts ("In The Simpsons Movie released in July 2007 name the band…"), or adult and dating spam written in casual personal language. They contain few classic spam words.
